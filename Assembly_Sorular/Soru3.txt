@@ -1,0 +1,24 @@
+
+org 100h
+    MOV BX, 0400H
+    MOV CL, 1
+    MOV SI, 0
+    SUB DI,DI
+
+kare: 
+    
+    MOV AL, CL
+    MOV DL, CL
+    MUL DL
+    MOV WORD PTR [BX+SI],AX
+    ADD DI,AX
+    INC SI
+    INC SI
+    INC CL
+    CMP CL,24
+    JNZ kare
+    JMP son
+
+son:
+    MOV WORD PTR [BX + SI], DI
+ret

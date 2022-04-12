@@ -1,0 +1,57 @@
+org 100h
+
+ MOV BX,0300H  ; sayilarin tutuldugu bellek bolgesi
+
+ MOV BYTE PTR [bx],55h
+ MOV BYTE PTR [bx+1],66H
+ MOV BYTE PTR [bx+2],54H
+ MOV BYTE PTR [bx+3],11H
+ MOV BYTE PTR [bx+4],87H
+ MOV BYTE PTR [bx+5],33H
+ MOV BYTE PTR [bx+6],75H
+ MOV BYTE PTR [bx+7],05H
+ MOV BYTE PTR [bx+8],5FH
+ MOV BYTE PTR [bx+9],23H 
+ 
+ MOV DI,1
+ MOV SI,0   ; en kucuk sayiyi tutmak icin ilk olarak 0 tanimlandi
+ 
+ 
+L1:
+ 
+ MOV AL,[BX+DI] ; en kucuk sayi bulunduktan sonraki degerler icin
+ MOV DL,[BX+SI] ; en kucuk sayiyi tutuyor
+  
+
+ CMP AL,DL  ;karsilastirma islemi
+ JAE devam  ;ele alinan sayi kucuk degilse devam'a git
+ 
+ MOV BYTE PTR[BX + SI],AL  ; yer degistirme(kucukse)
+ MOV BYTE PTR[BX + DI],DL  ; yer degistirme(kucukse)
+ 
+ 
+ 
+ JMP devam 
+ 
+L2:
+ 
+ INC SI   ;SI bir arttir
+ MOV DI,SI
+ INC DI   ;DI 1 arttir
+ CMP SI,9 ;SI 9 mu kaarsilastir
+ JZ son   ; 9 ise son a git
+ JNZ L1  ; SI 9 degilse L1 e devam et
+ 
+devam:
+ INC DI    ; DI bir arttir
+
+ CMP DI,10 ; DI 10 mu karsilastir
+ JZ L2     ; 10 ise L2 ye git
+ JNZ L1    ; degilse L1 ' e git
+ 
+son: 
+ 
+ HLT   
+
+
+ret
